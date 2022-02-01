@@ -10,8 +10,6 @@ type TOTP struct {
 	Secret []byte
 	Digits int
 	Period int
-
-	Algorithm string
 }
 
 func (t *TOTP) Generate(ts time.Time) string {
@@ -20,8 +18,6 @@ func (t *TOTP) Generate(ts time.Time) string {
 		Secret:  t.Secret,
 		Digits:  t.Digits,
 		Counter: int(ctr),
-
-		Algorithm: t.Algorithm,
 	}
 	return h.Generate()
 }

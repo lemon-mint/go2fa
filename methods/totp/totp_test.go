@@ -9,10 +9,9 @@ func TestTOTP_Generate(t *testing.T) {
 	RFCSecret := []byte("12345678901234567890")
 
 	RFCSha1OTP := TOTP{
-		Secret:    RFCSecret,
-		Digits:    8,
-		Period:    30,
-		Algorithm: "sha1",
+		Secret: RFCSecret,
+		Digits: 8,
+		Period: 30,
 	}
 
 	type args struct {
