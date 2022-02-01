@@ -151,6 +151,6 @@ func VerifyTOTP(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusUnauthorized)
+	w.WriteHeader(http.StatusForbidden)
 	w.Write([]byte(`{"success": false}`))
 }
