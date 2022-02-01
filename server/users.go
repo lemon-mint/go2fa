@@ -8,7 +8,7 @@ import (
 	"github.com/julienschmidt/httprouter"
 )
 
-func CreateUser(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+func CreateUser(w http.ResponseWriter, _ *http.Request, _ httprouter.Params) {
 	var user_id uint64
 	err := DB.QueryRow(
 		context.Background(),

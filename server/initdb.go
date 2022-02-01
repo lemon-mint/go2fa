@@ -46,6 +46,9 @@ func InitDB() error {
 					updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
 				)`,
 			)
+			if err != nil {
+				return err
+			}
 			return nil
 		},
 	)
