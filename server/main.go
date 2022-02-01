@@ -35,6 +35,7 @@ func main() {
 
 	r.POST("/api/v1/user/new", CreateUser)
 	r.POST("/api/v1/totp/new", CreateTOTP)
+	r.POST("/api/v1/totp/verify", VerifyTOTP)
 
 	addr := envaddr.Get(":8080")
 	log.Println("Listening on http://localhost" + addr)
