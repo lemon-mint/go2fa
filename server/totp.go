@@ -15,10 +15,6 @@ import (
 	"github.com/lemon-mint/go2fa/methods/totp"
 )
 
-const (
-	Auth_Method_TOTP = 1
-)
-
 type User struct {
 	UserID uint64 `json:"user_id"`
 }
