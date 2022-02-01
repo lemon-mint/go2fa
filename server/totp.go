@@ -7,6 +7,7 @@ import (
 	"encoding/base32"
 	"encoding/json"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/jackc/pgx/v4"
@@ -92,10 +93,20 @@ func VerifyTOTP(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	}
 
 	var verifyRequest VerifyRequest
-	err := json.NewDecoder(r.Body).Decode(&verifyRequest)
-	if err != nil {
-		http.Error(w, "Bad Request", 400)
-		return
+	if r.Method == "POST" {
+		err := json.NewDecoder(r.Body).Decode(&verifyRequest)
+		if err != nil {
+			http.Error(w, "Bad Request", 400)
+			return
+		}
+	} else if r.Method == "GET" {
+		userID, err := strconv.ParseUint(r.URL.Query().Get("user_id"), 10, 64)
+		if err != nil {
+			http.Error(w, "Bad Request", 400)
+			return
+		}
+		verifyRequest.UserID = userID
+		verifyRequest.Token = r.URL.Query().Get("token")
 	}
 	var keyID uint64
 	authMethodsRows, err := DB.Query(
