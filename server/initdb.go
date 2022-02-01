@@ -27,7 +27,7 @@ func InitDB() error {
 				context.Background(),
 				`CREATE TABLE IF NOT EXISTS auth_methods (
 					id BIGSERIAL PRIMARY KEY,
-					user_id BIGINT NOT NULL,
+					user_id BIGSERIAL NOT NULL,
 					type SMALLINT NOT NULL,
 					data_id BIGSERIAL NOT NULL,
 					created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
@@ -37,8 +37,18 @@ func InitDB() error {
 			if err != nil {
 				return err
 			}
+
+			_, err = t.Exec(
+				context.Background(),
+				`CREATE TABLE IF NOT EXISTS users (
+					user_id BIGSERIAL PRIMARY KEY,
+					created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+					updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
+				)`,
+			)
 			return nil
 		},
 	)
-
 }
+
+var ()
